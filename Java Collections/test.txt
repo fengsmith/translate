@@ -1,0 +1,17 @@
+The Iterable interface (java.lang.Iterable) is one of the root interfaces of the Java collection classes.
+The Collection interface extends Iterable, so all subtypes of Collection also implement the Iterable interface.
+
+A class that implements the Iterable can be used with the new for-loop. Here is such an example:
+
+List list = new ArrayList();
+
+for(Object o : list){
+    //do something o;    
+}
+The Iterable interface has only one method:
+
+public interface Iterable<T> {
+  public Iterator<T> iterator();    
+}
+How you implement this Iterable interface so that you can use it with the new for-loop,
+is explained in the text Implementing the Iterable Interface, in my Java Generics tutorial.
