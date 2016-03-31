@@ -39,6 +39,7 @@ Integer，第二个参数的 Collection 的泛型类型也必须是 Integer 。�
     Object theElement = addAndReturn(objectElement, stringList);
     
 在上面的推导中，编译器为了确保方法调用是类型安全的，T 只能是 String ，传递给行参 T element 的 objectElement 的类型也必须是 String 类型，而 objectElement 的类型是 Object ，Object 也不是 String 的子类，所以编译器会报错。
+注意，List<String> 不是 List<Object> 的子类型，所以能出现 List<Object> 的地方不一定能出现 List<String> 。
      
     
     
