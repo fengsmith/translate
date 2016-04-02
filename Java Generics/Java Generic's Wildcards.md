@@ -63,10 +63,71 @@ B 和 C 都继承自 A 。
 
 ### 任意通配
 List<?> 这个 list 的类型是不清楚的。可以是 List<A>，List<B>，List<String> 等。
+由于不知道 list 的泛型类型，只能把从 list 中读取出来的元素当作 Object 来处理。下面是一个例子：
+
+    public void processElements(List<?> elements) {
+        for (Object o : elements) {
+            System.out.println(o);
+        }
+    }
+
+现在，我们可以把任何泛型 list 作为参数来调用 processElements() 方法。例如，List<A> ，List<B> ，List<C> 的实例等。下面是一个合法的例子：
+
+    List<A> listA = new ArrayList<A>();
+    processElements(listA);
+
+### extends 通配边界
+List<? extends A> 意思是 List 中的对象是 class A ，或者是 class A 的子类的实例（例如 B 和 C）。
+当一个集合中的实例是 A 或者是 A 的子类的实例，把从集合中读取出的实例转换为类型 A 是安全的。下面是例子：
+
+    public void processElements(List<? extends A> elements) {
+        for (A a : elements) {
+            System.out.println(a.getValue());
+        }
+    }
+
+现在，可以把 List<A>， List<B>，List<C> 作为参数来调用 processElements() 方法。所以，下面的例子都是合法的：
+
+    List<A> listA = new ArrayList<A>();
+    processElements(listA);
+
+    List<B> listB = new ArrayList<B>();
+    processElements(listB);
+
+    List<C> listC = new ArrayList<C>();
+    processElements(listC);
+注意，现在仍然不能往 list 中插入元素，因为根本就不知道 list 的泛型类型是 A ，B 还是 C 。
+
+### super 通配边界
+ List<? super A> 的意思是 List 中的对象是 class A 或者是 class A 的父类。
+ 当可以知道一个集合中的实例是 A 或者是 A 的父类的实例时，把 A 或 A 的子类（例如 B 或者是 C）的实例插入到 list 是安全的。下面是例子：
+
+    public static void insertElements(List<? super A> list) {
+        list.add(new A());
+        list.add(new B());
+        list.add(new C());
+    }
+
+所有被插入的元素都是 A 或者是 A 的子类的实例。由于 B 和 C 都继承自 A ，如果 A 有父类，B 和 C 的实例同样也是 A 的父类的实例。
+现在，可以把 List<A> 或者是泛型类型是 A 的父类的 List 作为参数来调用 insertElements() 方法。所以，下面的例子是合法的：
+
+    List<A> listA = new ArrayList<A>();
+    insertElements(listA);
+
+    List<Object> listObject = new ArrayList<Object>();
+    insertElements(listObject);
+
+然而，不能从 insertElements() 中读取对象，除非把读取出的对象强制转换为 Object 类型。在调用 insertElements() 方法时 list 中的元素可能是 A 或者是 A 的父类的实例，却不能精确地知道到底是哪一个类。然而，任何类都是 Object 的子类，所以可以把 list 中读取到的对象转换为 Object 类型。所以，下面的例子是合法的：
+
+    Object object = list.get(0);
+
+但这个例子是不合法的：
+
+    A object = list.get(0);
+    // 因为 list.get(0) 获取到的有可能是 A 的父类的实例，比如 A object = new Object(); 是不合法的
 
 
-     
 
-    
-    
-    
+
+
+
