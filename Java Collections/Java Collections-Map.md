@@ -39,7 +39,52 @@ TreeMap 也是键和值映射的集合。但 TreeMap 保证迭代时 key 或 val
    
 调用了三次 put() 方法，每次调用都会把一个 key 和 value 关联起来。然后就可以通过 key 来访问到 value 。可以像这样用 get() 方法来访问 value 。
     
-    String 
+    String element1 = (String) mapA.get("key1");
+    
+可以迭代 Map 的 keys 或 values 。下面是具体的方法：
+   
+   // keySet
+   Iterator iterator = mapA.keySet().iterator();
+   
+   // valueSet
+   Iterator iterator = mapA.values().iterator();
+   
+通常会迭代 Map 的 keys 然后在迭代的过程中根据 key 取出相应的 value 。下面是具体的方法：
+   
+   Iterator iterator = mapA.keySet().iterator();
+   while (iterator.hasNext()) {
+      Object key = iterator.next();
+      Object value = mapA.get(key);
+   }
+   // 通过 for-each 循环来访问
+   for (Object key : mapA.keySet()) {
+      Object value = mapA.get(key);
+   }
+   
+### 移除元素
+   
+可以调用 remove(Object key) 方法来移除元素。匹配 key 值来移除 (key, value) 对儿。
+   
+### 泛型 Map
+默认，可以把任何对象都添加到 Map 中，但从 Java 5 之后可以限制添加到 Map 中的 key 和 value 的类型。下面是一个例子：
+   
+   Map<String, Object> map = new HashMap<String, Object>();
+   
+现在，Map 中只接受 String 类型的 key 和 Object 类型的 value 。现在可以迭代和访问 keys 和 values 而不再需要强制转换类型。下面是具体的代码：
+   
+   for (MyObject anObject : map.values()) {
+      // 对 anObject 做些事
+   }
+   for (String key : map.keySet()) {
+      MyObject value = map.get(key);
+      // 对 value 做些事
+   }
+   
+可以阅读 Java 泛型教程来了解更多的 Java 泛型知识。
+   
+### JavaDoc 中的更多细节
+还可以用 Map 做更多的事，详细情况得查阅 JavaDoc 。本文主要集中在两个最常用的操作上：添加/移除元素，迭代 keys 和 values 。
+    
    
    
    
