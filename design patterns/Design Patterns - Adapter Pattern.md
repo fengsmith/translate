@@ -1,6 +1,7 @@
-适配器模式是在两个不兼容的或者是无关的接口之间充当一个桥梁。这种设计模式综合了两个无关接口的功能，属于结构型模式的一种。
+原文链接：[http://www.tutorialspoint.com/design_pattern/adapter_pattern.htm](http://www.tutorialspoint.com/design_pattern/adapter_pattern.htm)
+适配器模式是在两个不兼容的或者是无关的接口之间充当一个桥梁。这种设计模式结合两个无关接口的功能于一体，属于结构型模式的一种。
 
-这种设计模式需要一个单独的类，这个单独的类负责综合那些独立的或者是不兼容的接口的所有功能。现实生活中也有这样的例子，读卡器在存储卡和笔记本电脑之间充当了一个适配器的角色。用户先把存储卡插入到读卡器中，再把读卡器插入到笔记本电脑中，这样一来笔记本电脑就可以在存储卡中读写数据。
+这种设计模式需要一个单独的类，这个单独的类负责结合那些独立的或者是不兼容的接口的所有功能。现实生活中也有这样的例子，读卡器在存储卡和笔记本电脑之间充当了一个适配器的角色。用户先把存储卡插入到读卡器中，再把读卡器插入到笔记本电脑中，这样一来笔记本电脑就可以在存储卡中读写数据。
 
 下面我们演示一个适配器模式的例子：一个音乐播放器只能播放 mp3 文件，我们想要改装这个音乐播放器，改装后的音乐播放器可以播放 mp3 、vlc 、mp4 文件。
 
@@ -92,5 +93,46 @@ MediaAdapter.java
 创建一个实现了 MediaPlayer 接口的具体实现类。
 
 AudioPlayer.java
+
+    public class AudioPlayer implements MediaPlayer {
+        MediaAdapter mediaAdapter;
+        
+        @Override
+        public void play(String audioType, String fileName) {
+            // 原本就支持播放 mp3
+            if (audioType.equalsIgnoreCase("mp3")) {
+                System.out.println("Playing mp3 file. Name:" + fileName);
+            } else if (audioType.equalsIgnoreCase("vlc") || audioType.equalsIgnoreCase("mp4")) {
+                // mediaAdapter 支持播放其他格式的文件
+                mediaAdapter = new MediaAdapter(audioType);
+                mediaAdapter.play(audioType, fileName);
+            } else {
+                System.out.println("Invalid media. " + audioType + " format not supported");
+            }
+        }
+    }
+    
+### 第五步
+使用 AudioPlayer 播放不同格式的音频文件。
+    
+AdapterPatternDemo.java
+    
+    public class AdapterPatternDemo {
+        public static void main(String[] args) {
+            AudioPlayer audioPlayer = new AudioPlayer();
+            
+            audioPlayer.play("mp3", "beyond the horizen.mp3");
+            audioPlayer.play("mp4", "alone.mp4");
+            audioPlayer.play("vlc", "far far away.vlc");
+            audioPlayer.play("avi", "mind me.avi");
+        }
+    }
+### 第六步
+验证输出结果。
+    
+    Playing mp3 file. Name: beyond the horizon.mp3
+    Playing mp4 file. Name: alone.mp4
+    Playing vlc file. Name: far far away.vlc
+    Invalid media. avi format not supported
 
   
