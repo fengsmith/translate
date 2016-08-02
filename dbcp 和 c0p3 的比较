@@ -1,0 +1,9 @@
+http://stackoverflow.com/questions/30482909/is-hibernate-c3p0-configuration-needed-if-tomcat-jdbc-datasource-is-configured
+http://stackoverflow.com/questions/5303671/configure-hibernate-to-connect-to-database-via-jndi-datasource
+http://stackoverflow.com/questions/5246874/using-c3p0-connection-pooling-in-a-tomcat-spring-based-app
+http://stackoverflow.com/questions/520585/connection-pooling-options-with-jdbc-dbcp-vs-c3p0/520868#520868
+http://forum.spring.io/forum/spring-projects/data/49876-error-while-using-c3p0-datasource-through-jndi
+http://www.programering.com/a/MTNyUjNwATI.html
+http://www.programering.com/a/MjNyczNwATQ.html
+https://bioincloud.wordpress.com/2014/02/27/configure-c3p0-datasource-in-tomcat7/
+https://arviarya.wordpress.com/2013/02/15/apache-dbcp-connection-pool-revisited/
